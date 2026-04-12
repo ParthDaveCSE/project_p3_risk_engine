@@ -1,0 +1,41 @@
+parameters:
+  hemoglobin:
+    unit: "g/dL"
+    absolute_min: 0.0
+    absolute_max: 30.0
+    critical_low: 8.0
+    critical_high: 20.0
+    min_normal: 12.0
+    max_normal: 17.0
+  glucose:
+    unit: "mg/dL"
+    absolute_min: 10.0
+    absolute_max: 1000.0
+    critical_low: 50.0
+    critical_high: 200.0
+    min_normal: 70.0
+    max_normal: 99.0
+  wbc:
+    unit: "/μL"
+    absolute_min: 500.0
+    absolute_max: 100000.0
+    critical_low: 2000.0
+    critical_high: 20000.0
+    min_normal: 4000.0
+    max_normal: 11000.0
+  platelets:
+    unit: "/μL"
+    absolute_min: 10000.0
+    absolute_max: 1000000.0
+    critical_low: 50000.0
+    critical_high: 800000.0
+    min_normal: 150000.0
+    max_normal: 450000.0
+  creatinine:
+    unit: "mg/dL"
+    absolute_min: 0.1
+    absolute_max: 15.0
+    critical_low: 0.3
+    critical_high: 5.0
+    min_normal: 0.6
+    max_normal: 1.3
