@@ -2,3 +2,9 @@
 2026-04-12 15:41:18,273 | WARNING | __main__ | Warning example
 2026-04-12 15:41:18,273 | ERROR | __main__ | Error example
 2026-04-12 16:35:19,029 | INFO | __main__ | Loaded config from config/clinical_rules.yaml
+2026-04-13 11:41:30,276 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-13 11:41:30,277 | INFO | __main__ | Generated 4000 normal patient records
+2026-04-13 11:41:30,282 | INFO | __main__ | Generated 750 high-risk patient records
+2026-04-13 11:41:30,282 | INFO | __main__ | Generated 250 broken/corrupt patient records
+2026-04-13 11:41:30,283 | INFO | __main__ | Final dataset: 5000 total rows | Normal: 4000 | Risk: 750 | Broken: 250
+2026-04-13 11:41:30,305 | INFO | __main__ | Dataset saved to data/raw/synthetic_data.csv
