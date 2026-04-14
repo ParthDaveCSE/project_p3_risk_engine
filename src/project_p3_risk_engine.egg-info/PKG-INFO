@@ -1,0 +1,19 @@
+Metadata-Version: 2.4
+Name: project-p3-risk-engine
+Version: 0.1.0
+Summary: Add your description here
+Requires-Python: >=3.14
+Description-Content-Type: text/markdown
+Requires-Dist: mlflow>=3.11.1
+Requires-Dist: pandas>=2.3.3
+Requires-Dist: pydantic>=2.12.5
+Requires-Dist: pytest>=9.0.3
+Requires-Dist: pyyaml>=6.0.3
+Requires-Dist: scikit-learn>=1.8.0
+Requires-Dist: typer>=0.24.1
+
+# Config-Driven ML Risk System
+
+This repository contains a Config-Driven ML Risk System. It features strict data validation, confidence scoring, and model explainability, completely decoupling domain logic from system infrastructure.
+
+STAGE: PROJECT INITIALIZATION
