@@ -39,3 +39,10 @@ parameters:
     critical_high: 5.0
     min_normal: 0.6
     max_normal: 1.3
+confidence:
+  high_threshold: 0.80
+  moderate_threshold: 0.50
+  interpretations:
+    high: "Data quality sufficient – proceed with prediction"
+    moderate: "Data quality concerns detected – review recommended"
+    low: "Data quality insufficient – manual verification required"

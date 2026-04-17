@@ -8779,3 +8779,44 @@
 2026-04-14 11:12:32,153 | ERROR | src.data.validator | Hard rejection: Value error, hemoglobin=-5.558170600639657 is outside biological limits absolute_min=0.0, absolute_max=30.0
 2026-04-14 11:12:32,153 | ERROR | src.data.validator | Hard rejection: Value error, hemoglobin=39.52113778140214 is outside biological limits absolute_min=0.0, absolute_max=30.0
 2026-04-14 11:12:32,153 | ERROR | src.data.validator | Hard rejection: Value error, hemoglobin=-6.423432757672162 is outside biological limits absolute_min=0.0, absolute_max=30.0
+2026-04-17 08:26:41,086 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-17 08:26:41,286 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-17 08:29:50,211 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-17 08:29:50,261 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-17 08:29:50,263 | ERROR | src.data.validator | Hard rejection: Field required
+2026-04-17 08:29:50,263 | ERROR | src.data.validator | Hard rejection: Field required
+2026-04-17 08:29:50,263 | ERROR | src.data.validator | Hard rejection: Field required
+2026-04-17 08:30:21,675 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-17 08:30:21,761 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-17 08:30:21,764 | INFO | src.data.validator | Record validated cleanly
+2026-04-17 08:30:21,764 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-17 08:30:21,764 | INFO | src.data.validator | Record validated cleanly
+2026-04-17 08:30:21,764 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-17 08:30:21,765 | WARNING | src.data.validator | Critical range flag: hemoglobin=29.0 critical_low=8.0, critical_high=20.0
+2026-04-17 08:30:21,765 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-17 08:30:21,765 | INFO | src.data.confidence_scorer | Confidence: 0.82 (high) | Flagged: ['hemoglobin_critical_range']
+2026-04-17 08:30:21,767 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-17 08:30:21,767 | INFO | src.data.validator | Record validated cleanly
+2026-04-17 10:33:02,252 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-17 10:33:02,297 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-17 10:33:02,298 | INFO | src.data.validator | Record validated cleanly
+2026-04-17 10:33:02,298 | INFO | __main__ | Confidence: 1.00 (high) | Flagged: none
+2026-04-17 10:33:02,298 | WARNING | src.data.validator | Critical range flag: hemoglobin=29.0 critical_low=8.0, critical_high=20.0
+2026-04-17 10:33:02,298 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-17 10:33:02,298 | INFO | __main__ | Confidence: 0.82 (high) | Flagged: ['hemoglobin_critical_range']
+2026-04-17 10:33:02,298 | WARNING | src.data.validator | Critical range flag: glucose=45.0 critical_low=50.0, critical_high=200.0
+2026-04-17 10:33:02,298 | WARNING | src.data.validator | Record accepted with flags: ['glucose_critical_range']
+2026-04-17 10:33:02,298 | INFO | __main__ | Confidence: 0.97 (high) | Flagged: ['glucose_critical_range']
+2026-04-17 10:33:17,174 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-17 10:33:17,257 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-17 10:33:17,259 | INFO | src.data.validator | Record validated cleanly
+2026-04-17 10:33:17,259 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-17 10:33:17,259 | INFO | src.data.validator | Record validated cleanly
+2026-04-17 10:33:17,259 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-17 10:33:17,260 | WARNING | src.data.validator | Critical range flag: hemoglobin=29.0 critical_low=8.0, critical_high=20.0
+2026-04-17 10:33:17,260 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-17 10:33:17,260 | INFO | src.data.confidence_scorer | Confidence: 0.82 (high) | Flagged: ['hemoglobin_critical_range']
+2026-04-17 10:33:17,262 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-17 10:33:17,262 | WARNING | src.data.validator | Critical range flag: hemoglobin=25.0 critical_low=8.0, critical_high=20.0
+2026-04-17 10:33:17,262 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-17 10:33:17,262 | INFO | src.data.confidence_scorer | Confidence: 0.90 (high) | Flagged: ['hemoglobin_critical_range']
