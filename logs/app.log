@@ -8820,3 +8820,240 @@
 2026-04-17 10:33:17,262 | WARNING | src.data.validator | Critical range flag: hemoglobin=25.0 critical_low=8.0, critical_high=20.0
 2026-04-17 10:33:17,262 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
 2026-04-17 10:33:17,262 | INFO | src.data.confidence_scorer | Confidence: 0.90 (high) | Flagged: ['hemoglobin_critical_range']
+2026-04-19 10:06:45,924 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:06:46,130 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:06:46,132 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:06:46,132 | INFO | src.utils.config_loader | Config validation passed | 5 parameters loaded
+2026-04-19 10:06:46,134 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:06:46,134 | INFO | __main__ | Pipeline initialized | Confidence threshold: 0.65
+2026-04-19 10:06:46,135 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:06:46,135 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:06:46,135 | INFO | __main__ | P-001 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:06:46,135 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:06:46,135 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:06:46,135 | INFO | __main__ | P-002 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:06:46,135 | WARNING | src.data.validator | Critical range flag: hemoglobin=29.0 critical_low=8.0, critical_high=20.0
+2026-04-19 10:06:46,135 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-19 10:06:46,135 | INFO | src.data.confidence_scorer | Confidence: 0.82 (high) | Flagged: ['hemoglobin_critical_range']
+2026-04-19 10:06:46,135 | INFO | __main__ | P-003 ACCEPTED - confidence 0.82 (high)
+2026-04-19 10:06:46,136 | ERROR | src.data.validator | Hard rejection: Value error, hemoglobin=150.0 is outside biological limits absolute_min=0.0, absolute_max=30.0
+2026-04-19 10:06:46,136 | WARNING | __main__ | P-004 REJECTED - failed absolute bounds validation
+2026-04-19 10:06:46,136 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:06:46,136 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:06:46,136 | INFO | __main__ | P-001 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:06:46,136 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:06:46,136 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:06:46,136 | INFO | __main__ | P-002 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:06:46,136 | WARNING | src.data.validator | Critical range flag: hemoglobin=29.0 critical_low=8.0, critical_high=20.0
+2026-04-19 10:06:46,136 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-19 10:06:46,136 | INFO | src.data.confidence_scorer | Confidence: 0.82 (high) | Flagged: ['hemoglobin_critical_range']
+2026-04-19 10:06:46,136 | INFO | __main__ | P-003 ACCEPTED - confidence 0.82 (high)
+2026-04-19 10:06:46,136 | ERROR | src.data.validator | Hard rejection: Value error, hemoglobin=150.0 is outside biological limits absolute_min=0.0, absolute_max=30.0
+2026-04-19 10:06:46,136 | WARNING | __main__ | P-004 REJECTED - failed absolute bounds validation
+2026-04-19 10:06:46,136 | ERROR | src.data.validator | Hard rejection: Input should be a valid number, unable to parse string as a number
+2026-04-19 10:06:46,137 | WARNING | __main__ | P-005 REJECTED - failed absolute bounds validation
+2026-04-19 10:06:46,137 | INFO | __main__ | Batch complete | Total: 5 | Accepted: 3 | Flagged: 0 | Rejected: 2 | Errors: 0
+2026-04-19 10:07:04,844 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:04,931 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:04,935 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:04,935 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.65
+2026-04-19 10:07:04,936 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:04,936 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:07:04,936 | INFO | src.pipeline.processor | P-TEST ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:07:04,938 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:04,938 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.65
+2026-04-19 10:07:04,938 | ERROR | src.data.validator | Hard rejection: Value error, hemoglobin=150.0 is outside biological limits absolute_min=0.0, absolute_max=30.0
+2026-04-19 10:07:04,938 | WARNING | src.pipeline.processor | P-TEST REJECTED - failed absolute bounds validation
+2026-04-19 10:07:04,940 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:04,940 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.65
+2026-04-19 10:07:04,940 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:04,941 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:07:04,941 | INFO | src.pipeline.processor | P-TEST ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:07:04,943 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:04,943 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.65
+2026-04-19 10:07:04,943 | WARNING | src.data.validator | Critical range flag: hemoglobin=29.0 critical_low=8.0, critical_high=20.0
+2026-04-19 10:07:04,943 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-19 10:07:04,944 | INFO | src.data.confidence_scorer | Confidence: 0.82 (high) | Flagged: ['hemoglobin_critical_range']
+2026-04-19 10:07:04,944 | INFO | src.pipeline.processor | P-TEST ACCEPTED - confidence 0.82 (high)
+2026-04-19 10:07:04,962 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:04,963 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.65
+2026-04-19 10:07:04,963 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:04,963 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:07:04,963 | INFO | src.pipeline.processor | P-001 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:07:04,963 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:04,963 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:07:04,963 | INFO | src.pipeline.processor | P-002 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:07:04,963 | ERROR | src.data.validator | Hard rejection: Input should be a valid number, unable to parse string as a number
+2026-04-19 10:07:04,963 | WARNING | src.pipeline.processor | P-BAD REJECTED - failed absolute bounds validation
+2026-04-19 10:07:04,963 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:04,963 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:07:04,963 | INFO | src.pipeline.processor | P-004 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:07:04,963 | INFO | src.pipeline.processor | Batch complete | Total: 4 | Accepted: 3 | Flagged: 0 | Rejected: 1 | Errors: 0
+2026-04-19 10:07:04,968 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:04,968 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.65
+2026-04-19 10:07:04,968 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:04,968 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:07:04,968 | INFO | src.pipeline.processor | P-TRACE-001 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:07:04,970 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:04,970 | INFO | src.utils.config_loader | Config validation passed | 5 parameters loaded
+2026-04-19 10:07:20,450 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:20,525 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:20,529 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:20,529 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:07:20,530 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:20,530 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:07:20,530 | WARNING | src.data.validator | Critical range flag: hemoglobin=29.0 critical_low=8.0, critical_high=20.0
+2026-04-19 10:07:20,530 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-19 10:07:20,530 | INFO | src.data.confidence_scorer | Confidence: 0.82 (high) | Flagged: ['hemoglobin_critical_range']
+2026-04-19 10:07:20,532 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:20,532 | WARNING | src.data.validator | Critical range flag: hemoglobin=25.0 critical_low=8.0, critical_high=20.0
+2026-04-19 10:07:20,532 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-19 10:07:20,532 | INFO | src.data.confidence_scorer | Confidence: 0.90 (high) | Flagged: ['hemoglobin_critical_range']
+2026-04-19 10:07:20,534 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:20,534 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.65
+2026-04-19 10:07:20,535 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:20,535 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:07:20,535 | INFO | src.pipeline.processor | P-TEST ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:07:20,537 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:20,537 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.65
+2026-04-19 10:07:20,537 | ERROR | src.data.validator | Hard rejection: Value error, hemoglobin=150.0 is outside biological limits absolute_min=0.0, absolute_max=30.0
+2026-04-19 10:07:20,537 | WARNING | src.pipeline.processor | P-TEST REJECTED - failed absolute bounds validation
+2026-04-19 10:07:20,539 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:20,539 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.65
+2026-04-19 10:07:20,539 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:20,539 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:07:20,539 | INFO | src.pipeline.processor | P-TEST ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:07:20,541 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:20,542 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.65
+2026-04-19 10:07:20,542 | WARNING | src.data.validator | Critical range flag: hemoglobin=29.0 critical_low=8.0, critical_high=20.0
+2026-04-19 10:07:20,542 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-19 10:07:20,542 | INFO | src.data.confidence_scorer | Confidence: 0.82 (high) | Flagged: ['hemoglobin_critical_range']
+2026-04-19 10:07:20,542 | INFO | src.pipeline.processor | P-TEST ACCEPTED - confidence 0.82 (high)
+2026-04-19 10:07:20,558 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:20,558 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.65
+2026-04-19 10:07:20,558 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:20,558 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:07:20,558 | INFO | src.pipeline.processor | P-001 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:07:20,558 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:20,558 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:07:20,558 | INFO | src.pipeline.processor | P-002 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:07:20,558 | ERROR | src.data.validator | Hard rejection: Input should be a valid number, unable to parse string as a number
+2026-04-19 10:07:20,558 | WARNING | src.pipeline.processor | P-BAD REJECTED - failed absolute bounds validation
+2026-04-19 10:07:20,558 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:20,558 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:07:20,558 | INFO | src.pipeline.processor | P-004 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:07:20,558 | INFO | src.pipeline.processor | Batch complete | Total: 4 | Accepted: 3 | Flagged: 0 | Rejected: 1 | Errors: 0
+2026-04-19 10:07:20,562 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:20,562 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.65
+2026-04-19 10:07:20,562 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:20,562 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:07:20,562 | INFO | src.pipeline.processor | P-TRACE-001 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:07:20,564 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:07:20,564 | INFO | src.utils.config_loader | Config validation passed | 5 parameters loaded
+2026-04-19 10:07:20,565 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:07:20,566 | ERROR | src.data.validator | Hard rejection: Value error, hemoglobin=150.0 is outside biological limits absolute_min=0.0, absolute_max=30.0
+2026-04-19 10:07:20,566 | ERROR | src.data.validator | Hard rejection: Field required
+2026-04-19 10:07:20,566 | WARNING | src.data.validator | Critical range flag: hemoglobin=25.0 critical_low=8.0, critical_high=20.0
+2026-04-19 10:07:20,566 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-19 10:10:32,637 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:32,723 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:32,727 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:32,727 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.8
+2026-04-19 10:10:32,728 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:32,728 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:10:32,728 | INFO | src.pipeline.processor | P-TEST ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:10:32,730 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:32,730 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.8
+2026-04-19 10:10:32,731 | ERROR | src.data.validator | Hard rejection: Value error, hemoglobin=150.0 is outside biological limits absolute_min=0.0, absolute_max=30.0
+2026-04-19 10:10:32,731 | WARNING | src.pipeline.processor | P-TEST REJECTED - failed absolute bounds validation
+2026-04-19 10:10:32,733 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:32,733 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.8
+2026-04-19 10:10:32,733 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:32,733 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:10:32,733 | INFO | src.pipeline.processor | P-TEST ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:10:32,735 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:32,735 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.8
+2026-04-19 10:10:32,735 | WARNING | src.data.validator | Critical range flag: hemoglobin=29.0 critical_low=8.0, critical_high=20.0
+2026-04-19 10:10:32,735 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-19 10:10:32,735 | INFO | src.data.confidence_scorer | Confidence: 0.82 (high) | Flagged: ['hemoglobin_critical_range']
+2026-04-19 10:10:32,735 | INFO | src.pipeline.processor | P-TEST ACCEPTED - confidence 0.82 (high)
+2026-04-19 10:10:32,737 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:32,737 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.8
+2026-04-19 10:10:32,737 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:32,737 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:10:32,737 | INFO | src.pipeline.processor | P-001 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:10:32,737 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:32,737 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:10:32,737 | INFO | src.pipeline.processor | P-002 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:10:32,737 | ERROR | src.data.validator | Hard rejection: Input should be a valid number, unable to parse string as a number
+2026-04-19 10:10:32,737 | WARNING | src.pipeline.processor | P-BAD REJECTED - failed absolute bounds validation
+2026-04-19 10:10:32,737 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:32,737 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:10:32,737 | INFO | src.pipeline.processor | P-004 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:10:32,737 | INFO | src.pipeline.processor | Batch complete | Total: 4 | Accepted: 3 | Flagged: 0 | Rejected: 1 | Errors: 0
+2026-04-19 10:10:32,740 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:32,740 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.8
+2026-04-19 10:10:32,740 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:32,740 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:10:32,740 | INFO | src.pipeline.processor | P-TRACE-001 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:10:32,742 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:32,742 | INFO | src.utils.config_loader | Config validation passed | 5 parameters loaded
+2026-04-19 10:10:43,677 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:43,755 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:43,761 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:43,761 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:10:43,761 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:43,761 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:10:43,762 | WARNING | src.data.validator | Critical range flag: hemoglobin=29.0 critical_low=8.0, critical_high=20.0
+2026-04-19 10:10:43,762 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-19 10:10:43,762 | INFO | src.data.confidence_scorer | Confidence: 0.82 (high) | Flagged: ['hemoglobin_critical_range']
+2026-04-19 10:10:43,763 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:43,764 | WARNING | src.data.validator | Critical range flag: hemoglobin=25.0 critical_low=8.0, critical_high=20.0
+2026-04-19 10:10:43,764 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-19 10:10:43,764 | INFO | src.data.confidence_scorer | Confidence: 0.90 (high) | Flagged: ['hemoglobin_critical_range']
+2026-04-19 10:10:43,766 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:43,766 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.8
+2026-04-19 10:10:43,766 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:43,766 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:10:43,766 | INFO | src.pipeline.processor | P-TEST ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:10:43,768 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:43,768 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.8
+2026-04-19 10:10:43,768 | ERROR | src.data.validator | Hard rejection: Value error, hemoglobin=150.0 is outside biological limits absolute_min=0.0, absolute_max=30.0
+2026-04-19 10:10:43,768 | WARNING | src.pipeline.processor | P-TEST REJECTED - failed absolute bounds validation
+2026-04-19 10:10:43,770 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:43,770 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.8
+2026-04-19 10:10:43,770 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:43,770 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:10:43,771 | INFO | src.pipeline.processor | P-TEST ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:10:43,773 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:43,773 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.8
+2026-04-19 10:10:43,773 | WARNING | src.data.validator | Critical range flag: hemoglobin=29.0 critical_low=8.0, critical_high=20.0
+2026-04-19 10:10:43,773 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']
+2026-04-19 10:10:43,773 | INFO | src.data.confidence_scorer | Confidence: 0.82 (high) | Flagged: ['hemoglobin_critical_range']
+2026-04-19 10:10:43,773 | INFO | src.pipeline.processor | P-TEST ACCEPTED - confidence 0.82 (high)
+2026-04-19 10:10:43,775 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:43,775 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.8
+2026-04-19 10:10:43,775 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:43,775 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:10:43,775 | INFO | src.pipeline.processor | P-001 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:10:43,775 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:43,775 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:10:43,775 | INFO | src.pipeline.processor | P-002 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:10:43,776 | ERROR | src.data.validator | Hard rejection: Input should be a valid number, unable to parse string as a number
+2026-04-19 10:10:43,776 | WARNING | src.pipeline.processor | P-BAD REJECTED - failed absolute bounds validation
+2026-04-19 10:10:43,776 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:43,776 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:10:43,776 | INFO | src.pipeline.processor | P-004 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:10:43,776 | INFO | src.pipeline.processor | Batch complete | Total: 4 | Accepted: 3 | Flagged: 0 | Rejected: 1 | Errors: 0
+2026-04-19 10:10:43,777 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:43,778 | INFO | src.pipeline.processor | Pipeline initialized | Confidence threshold: 0.8
+2026-04-19 10:10:43,778 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:43,778 | INFO | src.data.confidence_scorer | Confidence: 1.00 (high) | Flagged: none
+2026-04-19 10:10:43,778 | INFO | src.pipeline.processor | P-TRACE-001 ACCEPTED - confidence 1.00 (high)
+2026-04-19 10:10:43,779 | INFO | src.utils.config_loader | Loaded config from config/clinical_rules.yaml
+2026-04-19 10:10:43,780 | INFO | src.utils.config_loader | Config validation passed | 5 parameters loaded
+2026-04-19 10:10:43,780 | INFO | src.data.validator | Record validated cleanly
+2026-04-19 10:10:43,780 | ERROR | src.data.validator | Hard rejection: Value error, hemoglobin=150.0 is outside biological limits absolute_min=0.0, absolute_max=30.0
+2026-04-19 10:10:43,781 | ERROR | src.data.validator | Hard rejection: Field required
+2026-04-19 10:10:43,781 | WARNING | src.data.validator | Critical range flag: hemoglobin=25.0 critical_low=8.0, critical_high=20.0
+2026-04-19 10:10:43,781 | WARNING | src.data.validator | Record accepted with flags: ['hemoglobin_critical_range']

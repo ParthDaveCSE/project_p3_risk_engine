@@ -1,4 +1,4 @@
-from pydantic import BaseModel, model_validator, ValidationError
+from pydantic import BaseModel, model_validator, ValidationError, ConfigDict
 from typing import List
 from src.utils.config_loader import load_config
 from src.utils.logger import get_logger
@@ -8,12 +8,14 @@ config = load_config()['parameters']
 
 
 class PatientData(BaseModel):
+    model_config = ConfigDict(extra='ignore')
+
     hemoglobin: float
     glucose: float
     wbc: float
     platelets: float
     creatinine: float
-    warning_flags: List[str] = []  # populated during validation
+    warning_flags: List[str] = []
 
     @model_validator(mode='after')
     def check_absolute_bounds(self):
