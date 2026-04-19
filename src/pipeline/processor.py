@@ -1,5 +1,8 @@
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional
+from datetime import datetime
+import pandas as pd
+import os
 from src.data.validator import validate_patient
 from src.data.confidence_scorer import compute_confidence
 from src.utils.config_loader import load_config
@@ -44,6 +47,54 @@ class BatchResult:
             f"Accepted: {len(self.accepted)} | Flagged: {len(self.flagged)} | "
             f"Rejected: {len(self.rejected)} | Errors: {len(self.errors)}"
         )
+
+
+def export_accepted_records(batch_result: BatchResult, original_df=None,
+                            output_path: str = "data/processed/clean_patients.csv") -> pd.DataFrame | None:
+    """
+    Export accepted records from a BatchResult to CSV.
+    Only accepted records are exported – flagged and rejected records never reach the ML pipeline.
+    If original_df is provided, labels are merged from the original data.
+    """
+    if not batch_result.accepted:
+        logger.warning("No accepted records to export")
+        return None
+
+    records = []
+
+    # Create a lookup dictionary for labels from original_df
+    label_lookup = {}
+    if original_df is not None and "label" in original_df.columns:
+        # If patient_id exists in original_df, use it as lookup key
+        if "patient_id" in original_df.columns:
+            for idx, row in original_df.iterrows():
+                pid = row.get("patient_id")
+                if pid:
+                    label_lookup[str(pid)] = row.get("label", 0)
+        else:
+            # Otherwise use index as fallback
+            for idx, row in original_df.iterrows():
+                label_lookup[str(idx)] = row.get("label", 0)
+
+    for result in batch_result.accepted:
+        if result.data:
+            record = result.data.copy()
+            record["patient_id"] = result.patient_id
+            record["confidence_score"] = result.confidence_score
+
+            # Add label from lookup dictionary if available
+            if result.patient_id in label_lookup:
+                record["label"] = label_lookup[result.patient_id]
+            else:
+                record["label"] = 0  # Default label
+
+            records.append(record)
+
+    df = pd.DataFrame(records)
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    df.to_csv(output_path, index=False)
+    logger.info(f"Exported {len(df)} accepted records to {output_path}")
+    return df
 
 
 class PatientProcessor:
@@ -139,7 +190,6 @@ class PatientProcessor:
                 else:
                     result.errors.append(outcome)
             except Exception as e:
-                # Scenario 2: Unexpected exception for one record
                 logger.error(
                     f"[{patient_id}] PIPELINE ERROR - unexpected exception: "
                     f"{type(e).__name__}: {e}"
@@ -160,29 +210,34 @@ class PatientProcessor:
 
 if __name__ == "__main__":
     from src.utils.config_loader import validate_config_on_startup
+    from src.data.generator import generate_dataset
 
     print("\n--- Startup Config Validation ---")
     validate_config_on_startup()
     print("Config validation passed -- pipeline starting")
 
-    processor = PatientProcessor()
+    # Generate synthetic data if clean_patients.csv doesn't exist
+    if not os.path.exists("data/processed/clean_patients.csv"):
+        print("\n--- Generating synthetic data for pipeline ---")
+        df = generate_dataset(5000)
 
-    print("\n--- Individual Record Processing ---")
-    test_cases = [
-        {"patient_id": "P-001", "hemoglobin": 14.2, "glucose": 90, "wbc": 8000, "platelets": 200000, "creatinine": 1.0},
-        {"patient_id": "P-002", "hemoglobin": 9.0, "glucose": 90, "wbc": 8000, "platelets": 200000, "creatinine": 1.0},
-        {"patient_id": "P-003", "hemoglobin": 29.0, "glucose": 90, "wbc": 8000, "platelets": 200000, "creatinine": 1.0},
-        {"patient_id": "P-004", "hemoglobin": 150.0, "glucose": 90, "wbc": 8000, "platelets": 200000, "creatinine": 1.0},
-    ]
+        # Store original dataframe with labels for later merging
+        original_df = df.copy()
 
-    for case in test_cases:
-        result = processor.process_one(case)
-        print(f"{result.patient_id}: {result.status.upper()} | confidence: {result.confidence_score} | reason: {result.reason}")
+        # Add patient_id to original_df for lookup
+        original_df["patient_id"] = [f"P-{idx:04d}" for idx in range(len(original_df))]
 
-    print("\n--- Batch Processing with Graceful Degradation ---")
-    batch = test_cases + [
-        {"patient_id": "P-005", "hemoglobin": "not_a_number", "glucose": 90, "wbc": 8000, "platelets": 200000, "creatinine": 1.0}
-    ]
-    batch_result = processor.process_batch(batch)
-    print(batch_result.summary())
-    print(f"Error records: {[e.patient_id for e in batch_result.errors]}")
+        # Convert to list of dicts with patient_id
+        records = []
+        for idx, row in df.iterrows():
+            record = row.to_dict()
+            record["patient_id"] = f"P-{idx:04d}"
+            records.append(record)
+
+        processor = PatientProcessor()
+        batch_result = processor.process_batch(records)
+
+        print("\n--- Exporting accepted records ---")
+        export_accepted_records(batch_result, original_df=original_df)
+    else:
+        print("\n--- Clean patients file already exists ---")
