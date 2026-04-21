@@ -92,11 +92,11 @@ def test_logistic_regression_uses_liblinear():
     assert solver == "liblinear"
 
 
-def test_logistic_regression_class_weight_null():
-    """Baseline must use class_weight=None from YAML."""
+def test_logistic_regression_class_weight_balanced():
+    """Logistic Regression must use class_weight='balanced' from YAML for recall optimization."""
     config = load_config()
     class_weight = config["logistic_regression"]["class_weight"]
-    assert class_weight is None
+    assert class_weight == 'balanced'
 
 
 # ============================================

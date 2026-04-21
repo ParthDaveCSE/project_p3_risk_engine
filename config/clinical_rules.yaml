@@ -56,13 +56,13 @@ model:
   default_threshold: 0.5
 
 logistic_regression:
-  class_weight: null
+  class_weight: 'balanced'
   solver: liblinear
   max_iter: 1000
   random_state: 42
 
 random_forest:
-  class_weight: null
+  class_weight: 'balanced'
   n_estimators: 100
   max_depth: 10
   random_state: 42
@@ -73,3 +73,4 @@ paths:
   test_features: data/processed/test_features.csv
   model_artifact: models/artifacts/random_forest.joblib
   baseline_artifact: models/artifacts/logistic_regression.joblib
+  threshold_artifact: models/artifacts/threshold_config.json
