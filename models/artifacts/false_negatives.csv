@@ -1,0 +1,2 @@
+hemoglobin,glucose,wbc,platelets,creatinine,glucose_hemoglobin_ratio,wbc_platelet_ratio,creatinine_risk_flag,true_label,predicted_label,predicted_probability,original_index
+7.168406226370131,20.82371923801043,14.2979893405289,-4.820466785954269,-2.808954370423558,8.914854049287394,51.82653528145134,-0.0395161238922839,1,0,0.51,792
