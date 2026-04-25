@@ -1,0 +1,73 @@
+# PIMA Diabetes Dataset Configuration
+# Demonstrates architecture reusability - same code, different domain
+
+parameters:
+  glucose:
+    unit: "mg/dL"
+    absolute_min: 0.0
+    absolute_max: 300.0
+    critical_low: 70.0
+    critical_high: 200.0
+    min_normal: 70.0
+    max_normal: 99.0
+  blood_pressure:
+    unit: "mmHg"
+    absolute_min: 0.0
+    absolute_max: 150.0
+    critical_low: 60.0
+    critical_high: 140.0
+    min_normal: 90.0
+    max_normal: 120.0
+  skin_thickness:
+    unit: "mm"
+    absolute_min: 0.0
+    absolute_max: 60.0
+    critical_low: 10.0
+    critical_high: 50.0
+    min_normal: 15.0
+    max_normal: 35.0
+  insulin:
+    unit: "mu U/ml"
+    absolute_min: 0.0
+    absolute_max: 900.0
+    critical_low: 30.0
+    critical_high: 300.0
+    min_normal: 60.0
+    max_normal: 180.0
+  bmi:
+    unit: "kg/m²"
+    absolute_min: 10.0
+    absolute_max: 60.0
+    critical_low: 18.5
+    critical_high: 40.0
+    min_normal: 18.5
+    max_normal: 24.9
+  diabetes_pedigree:
+    unit: "function"
+    absolute_min: 0.0
+    absolute_max: 2.5
+    critical_low: 0.0
+    critical_high: 2.0
+    min_normal: 0.0
+    max_normal: 0.5
+  age:
+    unit: "years"
+    absolute_min: 20.0
+    absolute_max: 100.0
+    critical_low: 40.0
+    critical_high: 70.0
+    min_normal: 20.0
+    max_normal: 40.0
+
+model:
+  type: "random_forest"
+  n_estimators: 100
+  max_depth: 10
+  random_state: 42
+  class_weight: null
+  recall_target: 0.80
+  default_threshold: 0.5
+
+paths:
+  model_dir: "models/artifacts"
+  processed_data_dir: "data/processed"

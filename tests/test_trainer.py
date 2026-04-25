@@ -242,3 +242,27 @@ def test_run_training_pipeline_saves_artifacts():
 
     assert os.path.exists(lr_path)
     assert os.path.exists(rf_path)
+
+def test_pima_imputation_uses_training_median_only():
+    """PIMA imputation must use median from training data only - no leakage."""
+    from src.models.pima_trainer import impute_missing_values_leakage_safe
+
+    X_train = pd.DataFrame({
+        "Glucose": [100, 120, 0, 110, 130],
+        "BMI": [25.0, 28.0, 30.0, 0.0, 27.0],
+    })
+    X_test = pd.DataFrame({
+        "Glucose": [0, 115],
+        "BMI": [26.0, 0.0],
+    })
+
+    X_train_imp, X_test_imp = impute_missing_values_leakage_safe(
+        X_train.copy(), X_test.copy(), ["Glucose", "BMI"]
+    )
+
+    # Median of [100, 120, 110, 130] = 115
+    expected_median = 115.0
+    assert X_train_imp["Glucose"].iloc[2] == expected_median
+    assert X_test_imp["Glucose"].iloc[0] == expected_median
+    assert (X_train_imp["Glucose"] == 0).sum() == 0
+    assert (X_test_imp["Glucose"] == 0).sum() == 0
