@@ -1,0 +1,176 @@
+[
+  {
+    "index": 0,
+    "expected_log_odds": -0.13003280751091614,
+    "feature_contributions": [
+      {
+        "feature": "wbc",
+        "value": -1.2166401869065724,
+        "shap_value": -0.13277793218104228,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "glucose",
+        "value": -0.2021160736584448,
+        "shap_value": -0.07404750646639892,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "creatinine",
+        "value": -0.008266567279134,
+        "shap_value": -0.06855345396504006,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "hemoglobin",
+        "value": -0.3948502004140051,
+        "shap_value": -0.04892272060291874,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "platelets",
+        "value": 0.0530627065819732,
+        "shap_value": -0.04655654797707695,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "creatinine_risk_flag",
+        "value": -0.0395161238922839,
+        "shap_value": -0.04197333601450836,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "glucose_hemoglobin_ratio",
+        "value": -0.0263338155670332,
+        "shap_value": -0.03659100388168621,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "wbc_platelet_ratio",
+        "value": -0.5607582780240001,
+        "shap_value": -0.018115025210528126,
+        "direction": "decreases_risk"
+      }
+    ],
+    "total_shap": -0.4675375262991996,
+    "predicted_log_odds": -0.5975703338101157,
+    "predicted_probability": 0.3548997596240622,
+    "additivity_verified": true
+  },
+  {
+    "index": 1,
+    "expected_log_odds": -0.13003280751091614,
+    "feature_contributions": [
+      {
+        "feature": "wbc",
+        "value": -0.4533494806020365,
+        "shap_value": -0.13277793218104228,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "glucose",
+        "value": 0.3705698399652432,
+        "shap_value": -0.07404750646639892,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "creatinine",
+        "value": -0.0953695207686722,
+        "shap_value": -0.06855345396504006,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "hemoglobin",
+        "value": 1.9075868036930377,
+        "shap_value": -0.04892272060291874,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "platelets",
+        "value": -0.1921971134475524,
+        "shap_value": -0.04655654797707695,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "creatinine_risk_flag",
+        "value": -0.0395161238922839,
+        "shap_value": -0.04197333601450836,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "glucose_hemoglobin_ratio",
+        "value": -0.431833552406356,
+        "shap_value": -0.03659100388168621,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "wbc_platelet_ratio",
+        "value": -0.1827414755375764,
+        "shap_value": -0.018115025210528126,
+        "direction": "decreases_risk"
+      }
+    ],
+    "total_shap": -0.4675375262991996,
+    "predicted_log_odds": -0.5975703338101157,
+    "predicted_probability": 0.3548997596240622,
+    "additivity_verified": true
+  },
+  {
+    "index": 2,
+    "expected_log_odds": -0.13003280751091614,
+    "feature_contributions": [
+      {
+        "feature": "wbc",
+        "value": -0.5168090720136297,
+        "shap_value": -0.13277793218104228,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "glucose",
+        "value": -0.2703715692485708,
+        "shap_value": -0.07404750646639892,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "creatinine",
+        "value": -0.7805212402262256,
+        "shap_value": -0.06855345396504006,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "hemoglobin",
+        "value": -0.1953131197813594,
+        "shap_value": -0.04892272060291874,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "platelets",
+        "value": 0.427761901207318,
+        "shap_value": -0.04655654797707695,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "creatinine_risk_flag",
+        "value": -0.0395161238922839,
+        "shap_value": -0.04197333601450836,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "glucose_hemoglobin_ratio",
+        "value": -0.1555829683029961,
+        "shap_value": -0.03659100388168621,
+        "direction": "decreases_risk"
+      },
+      {
+        "feature": "wbc_platelet_ratio",
+        "value": -0.4271460831505896,
+        "shap_value": -0.018115025210528126,
+        "direction": "decreases_risk"
+      }
+    ],
+    "total_shap": -0.4675375262991996,
+    "predicted_log_odds": -0.5975703338101157,
+    "predicted_probability": 0.3548997596240622,
+    "additivity_verified": true
+  }
+]
