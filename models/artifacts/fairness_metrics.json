@@ -1,0 +1,59 @@
+{
+  "fairness_metric": "equal_opportunity_recall_gap",
+  "feature_removed": "Age",
+  "recall_gap_with": null,
+  "recall_gap_without": null,
+  "recall_gap_delta": null,
+  "overall_recall_with": 0.4528,
+  "overall_recall_without": 0.566,
+  "overall_recall_delta": 0.1132,
+  "gap_worsened_after_removal": null,
+  "overall_recall_degraded": false,
+  "groups_with": [
+    {
+      "group": "Young (21\u201335)",
+      "n_total": 93,
+      "n_positive": 27,
+      "recall": 0.4074,
+      "reliable": false
+    },
+    {
+      "group": "Middle (36\u201350)",
+      "n_total": 40,
+      "n_positive": 20,
+      "recall": 0.5,
+      "reliable": false
+    },
+    {
+      "group": "Older (51+)",
+      "n_total": 18,
+      "n_positive": 6,
+      "recall": 0.5,
+      "reliable": false
+    }
+  ],
+  "groups_without": [
+    {
+      "group": "Young (21\u201335)",
+      "n_total": 93,
+      "n_positive": 27,
+      "recall": 0.5185,
+      "reliable": false
+    },
+    {
+      "group": "Middle (36\u201350)",
+      "n_total": 40,
+      "n_positive": 20,
+      "recall": 0.5,
+      "reliable": false
+    },
+    {
+      "group": "Older (51+)",
+      "n_total": 18,
+      "n_positive": 6,
+      "recall": 1.0,
+      "reliable": false
+    }
+  ],
+  "dataset_limitation": "PIMA is a small, historically biased dataset. Results may not generalize."
+}

@@ -71,3 +71,9 @@ model:
 paths:
   model_dir: "models/artifacts"
   processed_data_dir: "data/processed"
+
+fairness:
+  age_bins: [21, 36, 51, 100]
+  age_labels: ["Young (21–35)", "Middle (36–50)", "Older (51+)"]
+  min_group_size_for_reliable_estimate: 30
+  recall_gap_alert_threshold: 0.10
