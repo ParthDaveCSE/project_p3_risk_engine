@@ -74,3 +74,4 @@ paths:
   model_artifact: models/artifacts/random_forest.joblib
   baseline_artifact: models/artifacts/logistic_regression.joblib
   threshold_artifact: models/artifacts/threshold_config.json
+  model_dir: models/artifacts

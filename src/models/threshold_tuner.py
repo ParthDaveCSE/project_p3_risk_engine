@@ -9,7 +9,6 @@ import pandas as pd
 import json
 import os
 import matplotlib
-
 matplotlib.use('Agg')  # CI/CD headless guard - prevents display crashes
 import matplotlib.pyplot as plt
 from sklearn.metrics import precision_recall_curve, recall_score, precision_score
@@ -75,50 +74,63 @@ def find_optimal_threshold(model, X_train, y_train, recall_target=None):
         "recall_target": float(recall_target),
         "default_threshold_recall": float(default_recall),
         "default_threshold_precision": float(default_precision),
+        "tuned_on": "training_data",
+        "data_version": "v1.0",
+        "model_version": "1.0.0",
     }
 
-    logger.info(
-        f"Optimal threshold: {optimal_threshold:.4f} | Recall: {achieved_recall:.4f} | Precision: {achieved_precision:.4f}")
+    logger.info(f"Optimal threshold: {optimal_threshold:.4f} | Recall: {achieved_recall:.4f} | Precision: {achieved_precision:.4f}")
     return result, (thresholds, precisions, recalls)
 
 
-def plot_precision_recall_curve(thresholds, precisions, recalls, optimal_threshold, output_path="reports/pr_curve.png"):
+def plot_precision_recall_curve(model, X_train, y_train, model_name="Model", output_path=None):
     """
     Generate and save Precision-Recall curve visualization.
-    CI/CD safe with memory cleanup.
     """
+    if output_path is None:
+        output_path = f"models/artifacts/precision_recall_curve_{model_name.lower().replace(' ', '_')}.png"
+
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+    y_pred_proba = model.predict_proba(X_train)[:, 1]
+    precisions, recalls, thresholds = precision_recall_curve(y_train, y_pred_proba)
 
     plt.figure(figsize=(10, 6))
     plt.plot(thresholds, precisions[:-1], 'b-', label='Precision', linewidth=2)
     plt.plot(thresholds, recalls[:-1], 'g-', label='Recall', linewidth=2)
-    plt.axvline(x=optimal_threshold, color='r', linestyle='--', label=f'Optimal Threshold = {optimal_threshold:.3f}')
     plt.xlabel('Decision Threshold')
     plt.ylabel('Score')
-    plt.title('Precision-Recall vs Threshold')
+    plt.title(f'Precision-Recall vs Threshold - {model_name}')
     plt.legend()
     plt.grid(True, alpha=0.3)
 
     plt.savefig(output_path, dpi=150, bbox_inches='tight')
-    plt.close()  # Memory safety - prevents invisible memory leaks
+    plt.close()
     logger.info(f"PR curve saved to {output_path}")
+    return output_path
 
 
-def save_threshold_artifact(threshold, model_version="1.0.0", output_path=None):
+def save_threshold_artifact(threshold_result, output_path=None):
     """
     Save threshold as versioned JSON artifact for inference.
     Includes traceability metadata.
     """
     if output_path is None:
-        output_path = config["paths"]["threshold_artifact"]
+        output_path = config["paths"].get("threshold_artifact", "models/artifacts/threshold_config.json")
+
+    # Extract just the dict if a tuple was passed
+    if isinstance(threshold_result, tuple):
+        threshold_result = threshold_result[0]
 
     artifact = {
-        "threshold": threshold,
-        "model_version": model_version,
-        "data_version": "v1.0",
-        "tuned_on": "training_data",
+        "threshold": threshold_result.get("threshold"),
+        "achieved_recall": threshold_result.get("achieved_recall"),
+        "achieved_precision": threshold_result.get("achieved_precision"),
+        "recall_target": threshold_result.get("recall_target"),
+        "tuned_on": threshold_result.get("tuned_on", "training_data"),
+        "data_version": threshold_result.get("data_version", "v1.0"),
+        "model_version": threshold_result.get("model_version", "1.0.0"),
         "random_state": config["random_forest"]["random_state"],
-        "recall_target": config["model"]["recall_target"],
     }
 
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -126,13 +138,13 @@ def save_threshold_artifact(threshold, model_version="1.0.0", output_path=None):
         json.dump(artifact, f, indent=2)
 
     logger.info(f"Threshold artifact saved to {output_path}")
-    return artifact
+    return output_path
 
 
 def load_threshold_artifact(path=None):
     """Load threshold artifact for inference."""
     if path is None:
-        path = config["paths"]["threshold_artifact"]
+        path = config["paths"].get("threshold_artifact", "models/artifacts/threshold_config.json")
 
     with open(path, 'r') as f:
         artifact = json.load(f)
@@ -143,12 +155,7 @@ def load_threshold_artifact(path=None):
 
 def run_threshold_tuning():
     """
-    Complete threshold tuning pipeline:
-    1. Load Feature Store splits
-    2. Train Random Forest with balanced class weights
-    3. Find optimal threshold on training data
-    4. Save threshold artifact
-    5. Generate PR curve
+    Complete threshold tuning pipeline.
     """
     logger.info("=" * 60)
     logger.info("STARTING THRESHOLD TUNING PIPELINE")
@@ -166,10 +173,10 @@ def run_threshold_tuning():
     threshold_result, (thresholds, precisions, recalls) = find_optimal_threshold(model, X_train, y_train)
 
     # Generate PR curve
-    plot_precision_recall_curve(thresholds, precisions, recalls, threshold_result["threshold"])
+    plot_precision_recall_curve(model, X_train, y_train, "RF_Balanced")
 
     # Save threshold artifact
-    save_threshold_artifact(threshold_result["threshold"])
+    save_threshold_artifact(threshold_result)
 
     # Validate on test data (no tuning - just evaluation)
     y_pred_proba_test = model.predict_proba(X_test)[:, 1]
@@ -198,4 +205,4 @@ def run_threshold_tuning():
 
 
 if __name__ == "__main__":
-    run_threshold_tuning()
+    threshold_result, model = run_threshold_tuning()

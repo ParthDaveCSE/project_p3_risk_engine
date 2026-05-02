@@ -1,8 +1,10 @@
 {
   "threshold": 0.76,
-  "model_version": "1.0.0",
-  "data_version": "v1.0",
+  "achieved_recall": 1.0,
+  "achieved_precision": 1.0,
+  "recall_target": 0.8,
   "tuned_on": "training_data",
-  "random_state": 42,
-  "recall_target": 0.8
+  "data_version": "v1.0",
+  "model_version": "1.0.0",
+  "random_state": 42
 }

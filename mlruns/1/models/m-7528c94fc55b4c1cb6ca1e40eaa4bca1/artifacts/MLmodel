@@ -1,0 +1,23 @@
+artifact_path: /Users/parthdave/PycharmProjects/project_p3_risk_engine/mlruns/1/models/m-7528c94fc55b4c1cb6ca1e40eaa4bca1/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.14.3
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+mlflow_version: 3.11.1
+model_id: m-7528c94fc55b4c1cb6ca1e40eaa4bca1
+model_size_bytes: 80393
+model_uuid: m-7528c94fc55b4c1cb6ca1e40eaa4bca1
+prompts: null
+run_id: 4be8f06fc51e4491b9d766ffdb819204
+utc_time_created: '2026-05-01 09:38:54.371192'

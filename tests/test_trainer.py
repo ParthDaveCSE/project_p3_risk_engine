@@ -1,6 +1,5 @@
 """
-18 Pytest Guards for Model Training
-Tests cover: Feature Store integrity, defensive evaluation, model persistence, config fidelity, leakage prevention, artifact pathing
+Trainer Tests – Feature Store integrity, model training, evaluation
 """
 
 import pytest
@@ -12,16 +11,14 @@ import tempfile
 from unittest.mock import Mock, patch
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import recall_score
 
 from src.models.trainer import (
     load_feature_store_splits,
     train_logistic_regression,
     train_random_forest,
     evaluate_model,
-    check_recall_target,
-    save_model,
-    load_model,
-    run_training_pipeline,
+    compare_models,
 )
 from src.utils.config_loader import load_config
 
@@ -93,14 +90,14 @@ def test_logistic_regression_uses_liblinear():
 
 
 def test_logistic_regression_class_weight_balanced():
-    """Logistic Regression must use class_weight='balanced' from YAML for recall optimization."""
+    """Logistic Regression must use class_weight='balanced' from YAML."""
     config = load_config()
     class_weight = config["logistic_regression"]["class_weight"]
     assert class_weight == 'balanced'
 
 
 # ============================================
-# Defensive Evaluation Tests
+# Evaluation Tests
 # ============================================
 
 def test_evaluate_model_handles_zero_division():
@@ -111,7 +108,7 @@ def test_evaluate_model_handles_zero_division():
     model = train_logistic_regression(X_train, y_train)
     metrics = evaluate_model(model, X_test, y_test_no_pos, "TestModel")
     assert metrics["recall"] is None
-    assert metrics["auc"] is None
+    assert metrics["auc_roc"] is None
 
 
 def test_evaluate_model_handles_missing_predict_proba():
@@ -124,7 +121,7 @@ def test_evaluate_model_handles_missing_predict_proba():
 
     mock_model = MockModel()
     metrics = evaluate_model(mock_model, X_test, y_test, "MockModel")
-    assert metrics["auc"] is None
+    assert metrics["auc_roc"] is None
 
 
 def test_evaluate_model_returns_expected_metrics():
@@ -132,9 +129,23 @@ def test_evaluate_model_returns_expected_metrics():
     X_train, X_test, y_train, y_test = load_feature_store_splits()
     model = train_logistic_regression(X_train, y_train)
     metrics = evaluate_model(model, X_test, y_test, "TestModel")
-    expected_keys = ["model_name", "accuracy", "precision", "recall", "f1_score", "auc", "confusion_matrix"]
+    expected_keys = ["model_name", "evaluation_type", "threshold_used", "accuracy", "precision", "recall", "f1_score", "auc_roc", "confusion_matrix"]
     for key in expected_keys:
         assert key in metrics
+
+
+def test_evaluate_model_with_custom_threshold():
+    """evaluate_model must accept custom threshold parameter."""
+    X_train, X_test, y_train, y_test = load_feature_store_splits()
+    model = train_random_forest(X_train, y_train)
+
+    metrics_default = evaluate_model(model, X_test, y_test, "TestModel", threshold=0.5)
+    metrics_custom = evaluate_model(model, X_test, y_test, "TestModel", threshold=0.3)
+
+    assert metrics_default["threshold_used"] == 0.5
+    assert metrics_custom["threshold_used"] == 0.3
+    assert metrics_default["evaluation_type"] == "default_threshold"
+    assert metrics_custom["evaluation_type"] == "production_threshold"
 
 
 # ============================================
@@ -143,16 +154,24 @@ def test_evaluate_model_returns_expected_metrics():
 
 def test_save_and_load_model_identical_predictions(tmp_path):
     """Saved and loaded model must produce identical predictions."""
-    X_train, X_test, y_train, y_test = load_feature_store_splits()
-    original_model = train_random_forest(X_train, y_train)
-    original_pred = original_model.predict(X_test)
+    from src.models.model_store import save_model, load_model, MODEL_DIR
 
-    path = str(tmp_path / "test_model.joblib")
-    save_model(original_model, path)
-    loaded_model = load_model(path)
-    loaded_pred = loaded_model.predict(X_test)
+    original_dir = MODEL_DIR
+    import src.models.model_store as ms
+    ms.MODEL_DIR = str(tmp_path)
 
-    np.testing.assert_array_equal(original_pred, loaded_pred)
+    try:
+        X_train, X_test, y_train, y_test = load_feature_store_splits()
+        original_model = train_random_forest(X_train, y_train)
+        original_pred = original_model.predict(X_test)
+
+        save_model(original_model, 'test_rf', version='1.0.0')
+        loaded_model = load_model('test_rf', version='1.0.0')
+        loaded_pred = loaded_model.predict(X_test)
+
+        np.testing.assert_array_equal(original_pred, loaded_pred)
+    finally:
+        ms.MODEL_DIR = original_dir
 
 
 def test_model_artifact_saved_to_correct_path():
@@ -165,7 +184,7 @@ def test_model_artifact_saved_to_correct_path():
 
 
 # ============================================
-# Config Fidelity Tests
+# Config Tests
 # ============================================
 
 def test_recall_target_in_config():
@@ -191,57 +210,43 @@ def test_random_forest_params_from_config():
 
 
 # ============================================
-# Check Recall Target Tests
+# Compare Models Tests
 # ============================================
 
-def test_check_recall_target_success():
-    """check_recall_target returns True when recall meets target."""
-    config = load_config()
-    target = config["model"]["recall_target"]
-    # Create a recall value above target
-    recall_high = target + 0.1
-    result = check_recall_target(recall_high, "TestModel")
-    assert result is True
+def test_compare_models_returns_dataframe():
+    """compare_models must return a DataFrame."""
+    metrics_list = [
+        {
+            "model_name": "ModelA",
+            "accuracy": 0.90,
+            "recall": 0.65,
+            "precision": 0.70,
+            "f1_score": 0.67,
+            "auc_roc": 0.88,
+        },
+        {
+            "model_name": "ModelB",
+            "accuracy": 0.92,
+            "recall": 0.72,
+            "precision": 0.75,
+            "f1_score": 0.73,
+            "auc_roc": 0.91,
+        },
+    ]
+    result = compare_models(metrics_list)
+    assert isinstance(result, pd.DataFrame)
 
 
-def test_check_recall_target_failure():
-    """check_recall_target returns False when recall below target."""
-    config = load_config()
-    target = config["model"]["recall_target"]
-    # Create a recall value below target
-    recall_low = target - 0.1
-    result = check_recall_target(recall_low, "TestModel")
-    assert result is False
-
-
-def test_check_recall_target_handles_none():
-    """check_recall_target returns False when recall is None."""
-    result = check_recall_target(None, "TestModel")
-    assert result is False
+def test_compare_models_empty_list_guard():
+    """compare_models must handle empty list without crashing."""
+    result = compare_models([])
+    assert isinstance(result, pd.DataFrame)
+    assert result.empty
 
 
 # ============================================
-# Training Pipeline Integration Tests
+# PIMA Imputation Tests
 # ============================================
-
-def test_run_training_pipeline_returns_two_metrics():
-    """run_training_pipeline must return metrics for both models."""
-    lr_metrics, rf_metrics = run_training_pipeline()
-    assert lr_metrics["model_name"] == "LogisticRegression"
-    assert rf_metrics["model_name"] == "RandomForest"
-
-
-def test_run_training_pipeline_saves_artifacts():
-    """Training pipeline must save both model artifacts."""
-    config = load_config()
-    lr_path = config["paths"]["baseline_artifact"]
-    rf_path = config["paths"]["model_artifact"]
-
-    # Run pipeline (will save/overwrite)
-    run_training_pipeline()
-
-    assert os.path.exists(lr_path)
-    assert os.path.exists(rf_path)
 
 def test_pima_imputation_uses_training_median_only():
     """PIMA imputation must use median from training data only - no leakage."""
