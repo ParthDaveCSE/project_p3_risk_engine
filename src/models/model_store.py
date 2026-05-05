@@ -15,6 +15,8 @@ DANGER ZONE:
 import os
 import glob
 import re
+import json
+import hashlib
 import joblib
 from typing import Optional, List, Dict, Any, Tuple
 
@@ -31,6 +33,18 @@ MODEL_DIR = config.get('paths', {}).get('model_dir', 'models/artifacts')
 class ModelArtifactNotFoundError(Exception):
     """Raised when a required model artifact cannot be found."""
     pass
+
+
+def _hash_config(config_path: str = "config/clinical_rules.yaml") -> str:
+    """
+    Compute MD5 hash of the clinical config file.
+    Stored in the production bundle so that at inference time the CLI
+    can detect if the config has changed since the bundle was created.
+    """
+    if not os.path.exists(config_path):
+        return "config_not_found"
+    with open(config_path, "rb") as f:
+        return hashlib.md5(f.read()).hexdigest()
 
 
 def get_next_version(name: str) -> str:
@@ -132,6 +146,11 @@ def save_production_bundle(
     A model without its threshold is not deployable.
     If stored separately, they go out of sync.
     This saves both components atomically.
+
+    CONFIG HASH:
+    The bundle also stores the MD5 hash of clinical_rules.yaml at
+    training time. The CLI compares this to the current config hash
+    at load time and logs a warning if the config changed since training.
     """
     os.makedirs(MODEL_DIR, exist_ok=True)
 
@@ -158,6 +177,7 @@ def save_production_bundle(
     bundle = {
         'model': model,
         'threshold': threshold,
+        'config_hash': _hash_config(),
         'metadata': {
             'name': name,
             'version': version,
@@ -168,7 +188,7 @@ def save_production_bundle(
 
     path = os.path.join(MODEL_DIR, f'{name}_bundle_v{version}.joblib')
     joblib.dump(bundle, path)
-    logger.info(f'Production bundle saved: {path} | threshold={threshold}')
+    logger.info(f'Production bundle saved: {path} | threshold={threshold} | config_hash={bundle["config_hash"][:8]}...')
     return path
 
 
