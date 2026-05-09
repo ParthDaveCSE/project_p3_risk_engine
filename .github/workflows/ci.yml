@@ -61,11 +61,11 @@ jobs:
         run: uv sync
       - name: Validate clinical_rules.yaml
         run: |
-          uv run python src/cli/risk_engine.py validate \
+          uv run python -m src.cli.risk_engine validate \
             --config config/clinical_rules.yaml
       - name: Validate pima_rules.yaml
         run: |
-          uv run python src/cli/risk_engine.py validate \
+          uv run python -m src.cli.risk_engine validate \
             --config config/pima_rules.yaml
       - name: Verify lock file is current
         run: uv lock --check
