@@ -77,3 +77,11 @@ fairness:
   age_labels: ["Young (21–35)", "Middle (36–50)", "Older (51+)"]
   min_group_size_for_reliable_estimate: 30
   recall_gap_alert_threshold: 0.10
+
+confidence:
+  high_threshold: 0.80
+  moderate_threshold: 0.50
+  interpretations:
+    high: "Data quality sufficient — proceed with prediction"
+    moderate: "Data quality concerns detected — review recommended"
+    low: "Data quality insufficient — manual verification required"
