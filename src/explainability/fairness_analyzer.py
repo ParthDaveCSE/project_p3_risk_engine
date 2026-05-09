@@ -194,7 +194,7 @@ def compute_recall_gap(metrics_df: pd.DataFrame) -> float:
         return np.nan
 
     valid_recalls = metrics_df[
-        (metrics_df["recall"].notna()) & (metrics_df["estimate_reliable"] == True)
+        (metrics_df["recall"].notna()) & metrics_df["estimate_reliable"]
     ]["recall"].tolist()
 
     if len(valid_recalls) < 2:
@@ -347,15 +347,15 @@ def plot_group_recall_comparison(
     width = 0.35
 
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.bar(x - width/2, recall_with, width, label=f"With Proxy Features", color="#3498db", alpha=0.85)
-    ax.bar(x + width/2, recall_without, width, label=f"Without Proxy Features", color="#e74c3c", alpha=0.85)
+    ax.bar(x - width/2, recall_with, width, label="With Proxy Features", color="#3498db", alpha=0.85)
+    ax.bar(x + width/2, recall_without, width, label="Without Proxy Features", color="#e74c3c", alpha=0.85)
 
     ax.axhline(y=overall_recall_with, color="#2980b9", linestyle="-", label=f"Overall Recall (With): {overall_recall_with:.3f}")
     ax.axhline(y=overall_recall_without, color="#c0392b", linestyle="-", label=f"Overall Recall (Without): {overall_recall_without:.3f}")
 
     ax.set_xlabel("Age Group")
     ax.set_ylabel("Recall (Diabetic Class)")
-    ax.set_title(f"Recall by Age Group — Effect of Removing Proxy Features")
+    ax.set_title("Recall by Age Group — Effect of Removing Proxy Features")
     ax.set_xticks(x)
     ax.set_xticklabels(groups)
     ax.set_ylim([0, 1.05])
@@ -389,32 +389,32 @@ def generate_fairness_report(
     lines.append("Metric: Equal Opportunity (Recall Gap)")
     lines.append("=" * 70)
 
-    lines.append(f"\n1. GROUP PERFORMANCE - WITH PROXY FEATURES")
+    lines.append("\n1. GROUP PERFORMANCE - WITH PROXY FEATURES")
     lines.append(f"   Recall gap: {gap_with:.4f}" if gap_with is not None else "   Recall gap: N/A")
     lines.append(f"   Overall recall: {overall_recall_with:.4f}")
     for _, row in metrics_with.iterrows():
         reliable_flag = "" if row.get("estimate_reliable", True) else " ▲ low support"
         lines.append(f"   {row['group']:<22} n={int(row['n_total']):>4} pos={int(row['n_positive']):>3} recall={row['recall']:.4f}{reliable_flag}")
 
-    lines.append(f"\n2. GROUP PERFORMANCE - WITHOUT PROXY FEATURES")
+    lines.append("\n2. GROUP PERFORMANCE - WITHOUT PROXY FEATURES")
     lines.append(f"   Recall gap: {gap_without:.4f}" if gap_without is not None else "   Recall gap: N/A")
     lines.append(f"   Overall recall: {overall_recall_without:.4f}")
     for _, row in metrics_without.iterrows():
         reliable_flag = "" if row.get("estimate_reliable", True) else " ▲ low support"
         lines.append(f"   {row['group']:<22} n={int(row['n_total']):>4} pos={int(row['n_positive']):>3} recall={row['recall']:.4f}{reliable_flag}")
 
-    lines.append(f"\n3. FEATURE REMOVAL ANALYSIS")
+    lines.append("\n3. FEATURE REMOVAL ANALYSIS")
     if gap_delta is not None and gap_delta < 0:
         lines.append(f"   Recall gap IMPROVED: {gap_with:.4f} → {gap_without:.4f} (Δ {gap_delta:+.4f})")
         if recall_delta < 0:
             lines.append(f"   TRADEOFF: Lower overall recall ({overall_recall_with:.4f} → {overall_recall_without:.4f}) may not be worth the fairness gain.")
         else:
-            lines.append(f"   Genuine improvement without utility loss.")
+            lines.append("   Genuine improvement without utility loss.")
     else:
         lines.append(f"   Recall gap WORSENED: {gap_with:.4f} → {gap_without:.4f} (Δ {gap_delta:+.4f})" if gap_delta is not None else "   Recall gap analysis not available")
-        lines.append(f"   This is the proxy feature problem. Fairness cannot be achieved by feature removal alone.")
+        lines.append("   This is the proxy feature problem. Fairness cannot be achieved by feature removal alone.")
 
-    lines.append(f"\n4. DOCUMENTED POSITION")
+    lines.append("\n4. DOCUMENTED POSITION")
     if documented_position:
         lines.append(documented_position)
     else:

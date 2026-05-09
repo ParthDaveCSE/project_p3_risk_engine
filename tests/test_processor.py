@@ -1,4 +1,3 @@
-import pytest
 from src.pipeline.processor import PatientProcessor
 from src.utils.config_loader import validate_config_on_startup
 

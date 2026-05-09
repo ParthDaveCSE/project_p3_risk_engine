@@ -148,7 +148,7 @@ def generate_error_report(
     report_lines.append("ERROR ANALYSIS REPORT – FALSE NEGATIVE DIAGNOSIS")
     report_lines.append("=" * 60)
 
-    report_lines.append(f"\n1. PROBLEM QUANTIFICATION")
+    report_lines.append("\n1. PROBLEM QUANTIFICATION")
     report_lines.append(f"   Total high-risk patients in test: {total_high_risk}")
     report_lines.append(f"   False Negatives (missed): {len(fn_df)}")
     missed_pct = len(fn_df) / total_high_risk * 100 if total_high_risk > 0 else 0
@@ -156,41 +156,41 @@ def generate_error_report(
     report_lines.append(f"   Recall target: {recall_target}")
     report_lines.append(f"   Production threshold: {threshold:.4f}")
 
-    report_lines.append(f"\n2. FALSE NEGATIVE SEGMENTATION")
+    report_lines.append("\n2. FALSE NEGATIVE SEGMENTATION")
     report_lines.append(f"   Boundary errors (uncertain): {segmentation['boundary_count']} ({segmentation['boundary_pct']:.1f}%)")
     report_lines.append(f"   Confident wrong: {segmentation['confident_count']} ({segmentation['confident_pct']:.1f}%)")
 
     if segmentation["boundary_count"] > segmentation["confident_count"]:
-        report_lines.append(f"\n   → DIAGNOSIS: MOSTLY BOUNDARY ERRORS")
-        report_lines.append(f"   → PRESCRIPTION: Lower threshold or tune on different metric")
+        report_lines.append("\n   → DIAGNOSIS: MOSTLY BOUNDARY ERRORS")
+        report_lines.append("   → PRESCRIPTION: Lower threshold or tune on different metric")
     else:
-        report_lines.append(f"\n   → DIAGNOSIS: SIGNIFICANT CONFIDENT WRONG PREDICTIONS")
-        report_lines.append(f"   → PRESCRIPTION: Add features or collect more training data")
+        report_lines.append("\n   → DIAGNOSIS: SIGNIFICANT CONFIDENT WRONG PREDICTIONS")
+        report_lines.append("   → PRESCRIPTION: Add features or collect more training data")
 
     # Confidence Score Paradox section
-    report_lines.append(f"\n3. CONFIDENCE SCORE PARADOX")
+    report_lines.append("\n3. CONFIDENCE SCORE PARADOX")
     if len(fn_df) > 0:
         report_lines.append(f"   Mean predicted probability of FNs: {fn_df['predicted_probability'].mean():.4f}")
     else:
-        report_lines.append(f"   No FNs to analyze")
-    report_lines.append(f"   High confidence score ≠ correct prediction.")
-    report_lines.append(f"   Confidence score validates input integrity, not predictive completeness.")
+        report_lines.append("   No FNs to analyze")
+    report_lines.append("   High confidence score ≠ correct prediction.")
+    report_lines.append("   Confidence score validates input integrity, not predictive completeness.")
 
     # Clinical pattern summary
     if len(fn_df) > 0:
-        report_lines.append(f"\n4. CLINICAL PATTERNS (Missed Patients)")
+        report_lines.append("\n4. CLINICAL PATTERNS (Missed Patients)")
         for col in ["hemoglobin", "glucose", "creatinine"]:
             if col in fn_df.columns:
                 mean_val = fn_df[col].mean()
                 report_lines.append(f"   {col}: mean = {mean_val:.2f}")
 
-    report_lines.append(f"\n5. PRESCRIPTION")
-    report_lines.append(f"   Based on analysis, prioritize:")
+    report_lines.append("\n5. PRESCRIPTION")
+    report_lines.append("   Based on analysis, prioritize:")
     if segmentation["boundary_count"] > 0:
-        report_lines.append(f"   - [ ] Re-tune decision threshold (targeting boundary errors)")
+        report_lines.append("   - [ ] Re-tune decision threshold (targeting boundary errors)")
     if segmentation["confident_count"] > 0:
-        report_lines.append(f"   - [ ] Add interaction features (targeting confident wrong)")
-    report_lines.append(f"   - [ ] Review clinical features for additional signals")
+        report_lines.append("   - [ ] Add interaction features (targeting confident wrong)")
+    report_lines.append("   - [ ] Review clinical features for additional signals")
 
     report_lines.append("\n" + "=" * 60)
     report_lines.append("END OF ERROR ANALYSIS")

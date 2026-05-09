@@ -8,12 +8,11 @@ import subprocess
 import hashlib
 import pandas as pd
 import numpy as np
-import joblib
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import (
     accuracy_score, precision_score, recall_score, f1_score,
-    roc_auc_score, confusion_matrix, classification_report
+    roc_auc_score, confusion_matrix
 )
 
 import mlflow
@@ -345,14 +344,14 @@ def run_training_pipeline():
     print("\n" + "=" * 60)
     print("MODEL EVALUATION SUMMARY")
     print("=" * 60)
-    print(f"\nLogistic Regression (Baseline):")
+    print("\nLogistic Regression (Baseline):")
     print(f"  Accuracy: {lr_metrics['accuracy']}")
     print(f"  Recall:   {lr_metrics['recall']}")
     print(f"  Precision: {lr_metrics['precision']}")
     print(f"  F1:       {lr_metrics['f1_score']}")
     print(f"  AUC:      {lr_metrics['auc_roc']}")
 
-    print(f"\nRandom Forest (Primary):")
+    print("\nRandom Forest (Primary):")
     print(f"  Accuracy: {rf_metrics['accuracy']}")
     print(f"  Recall:   {rf_metrics['recall']}")
     print(f"  Precision: {rf_metrics['precision']}")
@@ -368,8 +367,8 @@ def run_training_pipeline():
 
     print("\n" + "=" * 60)
     print("MLflow Tracking:")
-    print(f"  Run 'uv run mlflow ui' to view results")
-    print(f"  Experiment: clinical_risk_engine")
+    print("  Run 'uv run mlflow ui' to view results")
+    print("  Experiment: clinical_risk_engine")
     print(f"  LR Run ID: {run_id_lr[:8]}...")
     print(f"  RF Run ID: {run_id_rf[:8]}...")
 

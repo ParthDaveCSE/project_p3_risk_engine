@@ -1,0 +1,73 @@
+name: Clinical Risk Engine — Nightly
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # 2:00 AM UTC nightly
+  workflow_dispatch:        # manual trigger from Actions tab
+
+jobs:
+  nightly-train-and-test:
+    name: Train + Full Integration (138 tests)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install uv
+        run: pip install uv
+      - name: Sync dependencies
+        run: uv sync
+
+      - name: Generate synthetic data
+        run: uv run python src/data/generator.py
+
+      - name: Run feature engineering pipeline
+        run: uv run python src/features/feature_engineer.py
+
+      - name: Train models and log to MLflow
+        run: uv run python src/models/trainer.py
+
+      - name: Run full test suite including Tier 2
+        run: uv run pytest tests/ -v --tb=short
+        # All 138 tests run — artifacts exist from training above.
+
+      - name: Upload nightly artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-artifacts-${{ github.run_id }}
+          path: |
+            models/artifacts/
+            logs/app.log
+          retention-days: 7
+
+      - name: Notify on failure — GitHub Issues
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 Nightly quality gate failed — ${new Date().toISOString().split('T')[0]}`,
+              body: [
+                '## Nightly Pipeline Failure',
+                '',
+                `**Run ID:** ${context.runId}`,
+                `**Commit:** ${context.sha.substring(0, 12)}`,
+                `**Triggered at:** ${new Date().toISOString()}`,
+                '',
+                '### What to check',
+                '- Did the model meet recall >= 0.80?',
+                '- Did inference latency stay below 200ms?',
+                '- Did the CLI consistency test pass?',
+                '',
+                `[View run logs](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
+                '',
+                '### Rollback if needed',
+                'See `rollback_reference.json` from the last successful deploy artifact.',
+              ].join('\n'),
+              labels: ['nightly-failure', 'automated'],
+            })

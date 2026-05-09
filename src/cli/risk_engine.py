@@ -29,7 +29,6 @@ import time
 from typing import Optional
 
 import joblib
-import numpy as np
 import pandas as pd
 import typer
 
@@ -38,7 +37,7 @@ from src.utils.logger import get_logger
 from src.data.validator import validate_patient
 from src.data.confidence_scorer import compute_confidence
 from src.models.threshold_tuner import predict_with_threshold
-from src.models.model_store import list_available_models, ModelArtifactNotFoundError
+from src.models.model_store import ModelArtifactNotFoundError
 
 logger = get_logger(__name__)
 config = load_config()
@@ -556,7 +555,7 @@ def schema(
             f"  {field:<20} {info['type']:<8} {info['unit']:<12} "
             f"{str(info['example']):>10}  {info['description']}"
         )
-    typer.echo(f"\n  All fields required. All values must be floats.\n")
+    typer.echo("\n  All fields required. All values must be floats.\n")
 
 
 if __name__ == "__main__":

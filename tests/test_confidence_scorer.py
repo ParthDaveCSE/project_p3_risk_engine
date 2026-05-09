@@ -1,4 +1,3 @@
-import pytest
 from src.data.validator import validate_patient
 from src.data.confidence_scorer import compute_confidence, score_parameter
 

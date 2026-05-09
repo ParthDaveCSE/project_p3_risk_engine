@@ -18,7 +18,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import (
     confusion_matrix,
-    classification_report,
     roc_curve,
     auc,
     precision_recall_curve,
@@ -272,14 +271,14 @@ def run_production_evaluation(
     print(f"Threshold Used:      {metrics['threshold_used']:.4f}")
     print(f"Threshold Tuned On:  {metrics['threshold_tuned_on']}")
     print(f"Recall Target:       {metrics['recall_target']}")
-    print(f"\nMetrics:")
+    print("\nMetrics:")
     print(f"  Accuracy:  {metrics['accuracy']:.4f}")
     print(f"  Recall:    {metrics['recall']:.4f}")
     print(f"  Precision: {metrics['precision']:.4f}")
     print(f"  F1:        {metrics['f1']:.4f}")
     print(f"  ROC-AUC:   {metrics['roc_auc']:.4f}")
     print(f"  PR-AP:     {metrics['pr_ap']:.4f}")
-    print(f"\nConfusion Matrix:")
+    print("\nConfusion Matrix:")
     print(f"  TP: {tp}  |  FP: {fp}")
     print(f"  FN: {fn}  |  TN: {tn}")
     print(f"\nMissed high-risk patients: {fn}/{tp+fn} ({metrics['missed_high_risk_pct']}%)")

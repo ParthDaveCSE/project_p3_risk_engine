@@ -14,7 +14,6 @@ The value: This proves the ARCHITECTURE is domain-agnostic, not that the model g
 """
 
 import pandas as pd
-import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
@@ -210,18 +209,18 @@ def run_pima_validation(
     print("\n" + "=" * 60)
     print("PIMA DIABETES VALIDATION - ARCHITECTURE REUSABILITY DEMO")
     print("=" * 60)
-    print(f"\nDataset: PIMA Indians Diabetes (UCI)")
+    print("\nDataset: PIMA Indians Diabetes (UCI)")
     print(f"Total records after filtering: {len(df)}")
     print(f"Features used: {feature_cols}")
     print(f"Class distribution: {y.value_counts().to_dict()}")
 
-    print(f"\nConfusion Matrix:")
+    print("\nConfusion Matrix:")
     print(f"  True Negatives:  {cm[0][0]}")
     print(f"  False Positives: {cm[0][1]}")
     print(f"  False Negatives: {cm[1][0]}")
     print(f"  True Positives:  {cm[1][1]}")
 
-    print(f"\nClassification Report:")
+    print("\nClassification Report:")
     print(classification_report(
         y_test, y_pred,
         target_names=["Non-diabetic", "Diabetic"]

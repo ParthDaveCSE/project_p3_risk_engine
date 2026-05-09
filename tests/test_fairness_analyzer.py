@@ -2,12 +2,10 @@
 Fairness Analyzer Tests – 11 new tests for CI/CD integrity
 """
 
-import pytest
 import numpy as np
 import pandas as pd
 import json
 import os
-import tempfile
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 

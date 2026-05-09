@@ -2,12 +2,8 @@
 SHAP Explainability Tests – 17 Integrity Checks
 """
 
-import pytest
 import numpy as np
 import pandas as pd
-import os
-import tempfile
-from unittest.mock import Mock, patch
 from sklearn.ensemble import RandomForestClassifier
 
 from src.explainability.shap_explainer import (

@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import precision_recall_curve
 from src.utils.config_loader import load_config
 from src.utils.logger import get_logger
+from src.models.trainer import load_feature_store_splits, train_random_forest
 
 logger = get_logger(__name__)
 config = load_config()
@@ -119,9 +120,7 @@ def load_threshold_artifact(path=None):
 
 def run_threshold_tuning():
     """Run complete threshold tuning pipeline."""
-    from src.models.trainer import load_feature_store, train_random_forest
-
-    X_train, X_test, y_train, y_test = load_feature_store()
+    X_train, X_test, y_train, y_test = load_feature_store_splits()
     model = train_random_forest(X_train, y_train)
     result = find_optimal_threshold(model, X_train, y_train)
     save_threshold_artifact(result)

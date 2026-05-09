@@ -1,15 +1,11 @@
-import pytest
 import pandas as pd
 import numpy as np
 import os
 import joblib
 from sklearn.model_selection import train_test_split
-from sklearn.pipeline import Pipeline
 from src.features.feature_engineer import (
     DomainFeatureTransformer,
     build_feature_pipeline,
-    run_feature_pipeline,
-    load_and_prepare,
 )
 from src.utils.config_loader import load_config
 

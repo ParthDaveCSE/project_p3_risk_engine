@@ -8,12 +8,9 @@ import numpy as np
 import json
 import os
 import tempfile
-from unittest.mock import Mock, patch
 from sklearn.ensemble import RandomForestClassifier
 
 from src.models.evaluator import (
-    load_production_artifacts,
-    load_feature_store_test_data,
     predict_with_threshold,
     generate_confusion_matrix_plot,
     run_production_evaluation,

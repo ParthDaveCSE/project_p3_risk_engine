@@ -5,7 +5,6 @@ CLI Tests – 18 tests for the inference boundary
 import csv
 import io
 import json
-import os
 import pytest
 import numpy as np
 import pandas as pd

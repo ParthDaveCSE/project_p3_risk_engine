@@ -2,16 +2,8 @@
 Trainer Tests – Feature Store integrity, model training, evaluation
 """
 
-import pytest
 import pandas as pd
 import numpy as np
-import joblib
-import os
-import tempfile
-from unittest.mock import Mock, patch
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import recall_score
 
 from src.models.trainer import (
     load_feature_store_splits,
