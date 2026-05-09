@@ -85,3 +85,6 @@ confidence:
     high: "Data quality sufficient — proceed with prediction"
     moderate: "Data quality concerns detected — review recommended"
     low: "Data quality insufficient — manual verification required"
+
+system_settings:
+  minimum_confidence_threshold: 0.65
