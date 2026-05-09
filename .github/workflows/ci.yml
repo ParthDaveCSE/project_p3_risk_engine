@@ -41,9 +41,6 @@ jobs:
         run: |
           uv run pip freeze > /tmp/requirements.txt
           pip-audit -r /tmp/requirements.txt
-        # PORTFOLIO vs PRODUCTION:
-        # continue-on-error: true  ← portfolio (no real patient data)
-        # continue-on-error: false ← production (vulnerabilities block deploy)
         continue-on-error: true
 
   # --- Job 3: Validate Config ------------------------------------------------
@@ -81,8 +78,6 @@ jobs:
         run: uv sync
       - name: Run full test suite
         run: uv run pytest tests/ -v --tb=short
-        # 126 unit tests + 8 Tier 1 integration = 134 always-run
-        # 4 Tier 2 tests skip (no model artifacts in CI) — expected and correct
       - name: Upload application log on failure
         if: failure()
         uses: actions/upload-artifact@v4
@@ -92,17 +87,6 @@ jobs:
           retention-days: 7
 
   # --- Job 5: Deploy (CD) ----------------------------------------------------
-  #
-  # WHAT THIS DELIVERS vs WHAT "DEPLOYED" MEANS:
-  # This job produces a deployable artifact system — not a deployed system.
-  #
-  # What this delivers:
-  #   ✓ Deployment manifest (git commit, env, config hashes)
-  #   ✓ CLI verified end-to-end on sample inputs
-  #   ✓ Versioned release tag (traceable to MLflow run)
-  #   ✓ Deployment package uploaded to GitHub artifacts
-  #   ✓ Rollback reference stored
-  #
   deploy:
     name: Package and Deploy
     runs-on: ubuntu-latest
@@ -123,14 +107,15 @@ jobs:
       - name: Generate deployment manifest
         run: |
           python - <<'EOF'
-          import json, os, hashlib, sys, sklearn, datetime
+          import json, os, hashlib, sys, datetime
           manifest = {
               "deployed_at":     datetime.datetime.utcnow().isoformat() + "Z",
               "git_commit":      os.environ.get("GITHUB_SHA", "unknown")[:12],
               "python_version":  sys.version.split()[0],
-              "sklearn_version": sklearn.__version__,
+              "sklearn_version": "from_environment",
               "config_files": [
-                  "config/clinical_rules.yaml", "config/pima_rules.yaml"
+                  "config/clinical_rules.yaml",
+                  "config/pima_rules.yaml"
               ],
           }
           for cfg in manifest["config_files"]:
@@ -145,9 +130,9 @@ jobs:
 
       - name: CLI end-to-end verification
         run: |
-          uv run python src/cli/risk_engine.py schema --output json | \
+          uv run python -m src.cli.risk_engine schema --output json | \
             python -c "import json,sys; d=json.load(sys.stdin); assert 'hemoglobin' in d; print('✓ Schema verified')"
-          uv run python src/cli/risk_engine.py validate && \
+          uv run python -m src.cli.risk_engine validate && \
             echo "✓ Config validation verified"
 
       - name: Create and push release tag
